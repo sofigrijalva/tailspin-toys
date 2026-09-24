@@ -45,11 +45,28 @@ import { asc, count, eq } from 'drizzle-orm';
 import type { Database } from './db';
 import { games } from '../../db/schema';
 
+/**
+ * Returns a stable list of game ids ordered by title for static page generation.
+ *
+ * @param db The SQLite Drizzle database client used to query the catalog.
+ * @returns Sorted game ids in ascending title order.
+ */
 export async function getAllGameIds(db: Database): Promise<number[]> {
   const rows = await db.select({ id: games.id }).from(games).orderBy(asc(games.title));
   return rows.map((r) => r.id);
 }
 ```
+
+### Documentation expectations
+
+Every exported function in `db/**/*.ts` and `src/lib/*.ts` should include a TSDoc/JSDoc block that explains:
+
+- the purpose of the function and when it is used
+- each parameter, including the injectable `db` argument and any configuration inputs
+- the return value or failure/null contract
+- any important ordering, expectation, or deterministic behavior
+
+Prefer intent-based comments over low-value restatements. The docs must explain the contract, not merely repeat the signature.
 
 - Always `order by` a stable column (title) so static builds are deterministic.
 - Map raw rows to the app-facing `Game`/`Publisher`/`Category` types in one place; don't leak Drizzle row shapes into components.
