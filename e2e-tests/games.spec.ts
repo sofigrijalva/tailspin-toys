@@ -24,6 +24,33 @@ test.describe('Game Listing and Navigation', () => {
     });
   });
 
+  test('should filter games by category and publisher', async ({ page }) => {
+    await page.goto('/');
+    const gameCards = page.getByTestId('game-card');
+    const visibleGameCards = page.locator('[data-testid="game-card"]:not([hidden])');
+    await expect(gameCards).toHaveCount(21);
+
+    await test.step('Filter by one category', async () => {
+      await page.getByLabel('Strategy', { exact: true }).check();
+      await expect(visibleGameCards).toHaveCount(4);
+      await expect(page.getByTestId('game-filter-status')).toHaveText('4 games shown');
+    });
+
+    await test.step('Combine category and publisher filters', async () => {
+      await page.getByTestId('publisher-filter').selectOption({ label: 'CodeForge Studios' });
+      await expect(visibleGameCards).toHaveCount(1);
+      await expect(page.getByTestId('game-filter-status')).toHaveText('1 games shown');
+    });
+
+    await test.step('Allow multiple categories and clear filters', async () => {
+      await page.getByLabel('Puzzle', { exact: true }).check();
+      await expect(visibleGameCards).toHaveCount(2);
+      await page.getByTestId('reset-game-filters').click();
+      await expect(visibleGameCards).toHaveCount(21);
+      await expect(page.getByTestId('game-filter-status')).toHaveText('21 games shown');
+    });
+  });
+
   test('should navigate to correct game details page when clicking on a game', async ({ page }) => {
     let gameId: string | null;
     let gameTitle: string | null;
