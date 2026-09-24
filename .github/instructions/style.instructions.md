@@ -5,6 +5,21 @@ applyTo: '**/*.{astro,css}'
 
 # Tailwind CSS Instructions
 
+## Commenting and TypeScript Style
+
+### Commenting philosophy
+
+Comment the intent, not the mechanics. The code should explain what it does; comments should explain why a decision exists, what trade-off it is balancing, or what invariants matter. Avoid comments that merely restate the line below them or describe obvious operations already visible in the code.
+
+Treat stale comments as a bug: if a comment no longer matches the behavior, update it in the same change or remove it.
+
+### TypeScript formatting and documentation rules
+
+- Prefer explicit types for function parameters and return values in `db/` and `src/lib/`, especially for exported functions and helpers.
+- Write self-documenting interfaces and type aliases for component props, data contracts, and database rows.
+- Keep formatting consistent with the repo's ESLint defaults: readable multi-line signatures, predictable spacing, and no dead/unused variables.
+- When a rule is already enforced by ESLint, follow it consistently; `@typescript-eslint/no-unused-vars` and the recommended TypeScript/JS rules are the baseline for code hygiene.
+
 ## Tailwind CSS v4 Configuration
 
 This project uses Tailwind CSS v4.1.14 via the `@tailwindcss/vite` plugin.

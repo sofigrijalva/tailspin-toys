@@ -51,6 +51,12 @@ Refer to technology-specific instruction files:
 - Use props for configuration, not duplication
 - Document component APIs with TypeScript types
 
+### Commenting philosophy
+
+Comments should explain intent, trade-offs, and non-obvious decisions. They should answer why the code exists or why a particular approach was chosen, not restate what the code already makes obvious. If the code is self-explanatory, prefer no comment at all.
+
+For reusable `.astro` components, document the `Props` interface so the component contract is visible at the call site. Each prop should say what it is for and whether it is required or optional. When a component depends on a subtle UX decision or browser behavior, document that rationale once rather than sprinkling repetitive inline comments around the markup.
+
 ## Development Workflow
 
 1. **Choose the right tool**: 

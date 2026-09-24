@@ -27,6 +27,21 @@ npm ci
 npx playwright install chromium   # only needed to run the E2E tests
 ```
 
+## Coding standards
+
+This project keeps its code-quality guidance in the `.github/instructions/` folder. The current standards emphasize:
+
+- writing comments that explain intent, trade-offs, and non-obvious decisions instead of restating the code
+- documenting exported functions in `db/` and `src/lib/` with JSDoc/TSDoc that describe parameters and return values
+- documenting reusable `.astro` `Props` interfaces so component contracts stay clear
+- keeping TypeScript formatting consistent with the repo's ESLint rules and explicit type usage
+
+See:
+- `.github/instructions/astro.instructions.md`
+- `.github/instructions/drizzle.instructions.md`
+- `.github/instructions/style.instructions.md`
+- `.github/instructions/ui.instructions.md`
+
 ## Launch the site
 
 ```bash
